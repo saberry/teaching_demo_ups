@@ -1,0 +1,84 @@
+---
+title: "Using XGBoost for Time Series Forecasting"
+format: revealjs
+---
+
+# Recap
+
+## What We Know: Partitions
+
+- Divides a dataset into training, validation (sometimes), and test sets.
+
+- Training set: Used to train the model.
+
+- Validation set: Used to tune hyperparameters and prevent overfitting.
+
+- Test set: Used to evaluate the final model's performance on unseen data.
+
+## What We Learned: Partition Problems
+
+- Leakage can occur if the validation or test sets contain information from the training set.
+
+- You can avoid leakage by ensuring that train/test splits are 
+
+## What We Learned: XGBoost
+
+- A tree-based ensemble method that uses gradient boosting to improve a weak base learner.
+
+- Uses internal regularization to prevent overfitting and improve generalization.
+
+- Great for non-linear relationships, implicit interactions between features, and missing data.
+
+- Each tree is built sequentially, with each new tree attempting to correct the errors of the previous trees.
+
+- Trees don't vote, but go until a stopping criterion is met or the residuals stop improving.
+
+# What We Need To Know
+
+## Partitions
+
+- We cannot use a normal random split for time series data because it would destroy the temporal order of the data.
+
+- Traditional train/test splits assume that the data is independent and identically distributed (i.i.d.), which is not the case for time series data.
+
+- Instead, we need to use time-based splits that maintain the temporal structure of the data.
+
+- This ensures that the model is trained on past data and tested on future data, which is more realistic for time series forecasting.
+
+## Time Series Cross-Validation
+
+- We'll use TimeSeriesSplit from scikit-learn to perform cross-validation on time series data.
+
+- This method splits the data into multiple train/test sets, where each test set is a contiguous block of time that follows the training set.
+
+- "Successive training sets are supersets of that that come before them in time."
+
+## Target Variable
+
+- To use XGBoost for time series forecasting, we need to define a target variable that represents the future value we want to predict.
+
+- We can't use the absolute value of the target variable, since trees are not scale-invariant.
+
+- Instead, we can use differences, percent changes, or other transformations that make the target variable more suitable for tree-based models.
+
+## Creating Temporal Features
+
+- We need to create features that capture the temporal patterns in the data, such as lagged values, rolling averages, and seasonal indicators.
+
+- We also need to consider the impact of external factors, that may influence the target variable
+
+- These features should be carefully selected and validated to ensure they improve the model's performance.
+
+## Our Tasks
+
+- Explore our data to determine what we want to use.
+
+- Build a two-stage model (classifier, then this regressor) to predict whether the price will move at all and the magnitude of the price change.
+
+- Create lagged features and rolling windows for our features
+
+- Use TimeSeriesSplit to evaluate the model's performance.
+
+- Create a markdown file that explains everything.
+
+- Build a clear and specific prompt to achieve the above tasks.
