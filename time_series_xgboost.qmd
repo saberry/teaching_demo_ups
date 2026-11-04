@@ -9,15 +9,15 @@ format: revealjs
 
 - Divides a dataset into training, validation (sometimes), and test sets.
 
-- Training set: Used to train the model.
+- **Training** set: Used to train the model.
 
-- Validation set: Used to tune hyperparameters and prevent overfitting.
+- **Validation** set: Used to tune hyperparameters and prevent overfitting.
 
-- Test set: Used to evaluate the final model's performance on unseen data.
+- **Test** set: Used to evaluate the final model's performance on unseen data.
 
 ## What We Learned: Partition Problems
 
-- Leakage can occur if the validation or test sets contain information from the training set.
+- **Leakage** can occur if the validation or test sets contain information from the training set.
 
 - You can avoid leakage by ensuring that train/test splits are 
 
@@ -31,7 +31,15 @@ format: revealjs
 
 - Each tree is built sequentially, with each new tree attempting to correct the errors of the previous trees.
 
-- Trees don't vote, but go until a stopping criterion is met or the residuals stop improving.
+- **Trees don't vote**, but go until a stopping criterion is met or the residuals stop improving.
+
+## What We Learned: Plotting Shapley Values
+
+- Shap plots are a way to visualize the contribution of each feature to the model's predictions.
+
+- Beeswarm plots show the average magnitude and direction of the Shapley values for each feature.
+
+- Waterfall plots show the contribution of each feature to a single prediction, starting from the base value and adding/subtracting the Shapley values for each feature.
 
 # What We Need To Know
 
@@ -52,6 +60,13 @@ format: revealjs
 - This method splits the data into multiple train/test sets, where each test set is a contiguous block of time that follows the training set.
 
 - "Successive training sets are supersets of that that come before them in time."
+
+```{python}
+#| echo: false
+from sklearn.model_selection import TimeSeriesSplit
+
+tscv = TimeSeriesSplit(n_splits=5)
+```
 
 ## Target Variable
 
