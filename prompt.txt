@@ -1,0 +1,12 @@
+Use xgboost to predict the LL_price field within the #ticket_options_cleaned.csv file. 
+A two-stage model (classifier, then this regressor) will need to be built, with the classifier predicting whether the price will move at all, and the regressor predicting the magnitude of the price change.
+Since this is time series data, appropriately transform the LL_price variable. 
+You will also need to use the TimeSeriesSplit function from sklearn. 
+Create features with appropriate lags and rolling windows from masseyRat, Rank, Wins, Losses, and computerPick. 
+Create a separate file for all data prep and for modeling.
+Add a day of week and month feature to the data, and only keep rows where the day of the week is Friday, Saturday, or Sunday. 
+All code should be written in a human-centered approach and avoid writing unnecessary functions to perform tasks.
+If the outcome needs to be changed due to little movement, change the target to only predict games where the price moves. 
+Save the xgboost model and create a new file with explainer visualizations.
+After a single run of the model, perform modest parameter tuning with HalvingGridSearchCV
+Include a held-out final period for evaluation.
